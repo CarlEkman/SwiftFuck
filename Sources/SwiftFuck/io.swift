@@ -6,28 +6,21 @@
 //  Copyright © 2018 Carl Ekman. All rights reserved.
 //
 
-import Foundation
+import Swiftline
 
 func printError(_ message: String) {
-    fputs("\u{001B}[0;31m\(message)\n", stderr)
-}
-
-func printOutput(_ message: String) {
-    print("\u{001B}[;m\(message)")
+    print(message.f.Red)
 }
 
 func printPrompt(_ prompt: String = "→") {
-    print("\u{001B}[;m\(prompt) ", terminator: "")
+    print(prompt.f.Black + " ", terminator: "")
 }
 
-func readByte() -> Int8? {
-    printPrompt("Input byte:")
-    if let scalar = readLine()?.first?.unicodeScalars.first {
-        return Int8(scalar.value)
-    } else {
-        printError("Invalid input.")
-        return nil
+func readByte() -> Int8 {
+    let input = ask("Input byte:", type: Character.self) { settings in
+        settings.addInvalidCase("Must be a valid 8-bit Unicode character.") { return $0.toByte() == nil }
     }
+    return input.toByte()!
 }
 
 func writeByte(_ value: Int8) {
@@ -47,6 +40,25 @@ extension Session {
             let separator = i == highest ? "" : " "
             output += register + separator
         }
-        printOutput(output)
+        print(output)
+    }
+}
+
+extension Character {
+    func toByte() -> Int8? {
+        guard unicodeScalars.count == 1,
+            let value = unicodeScalars.first?.value,
+            value < 266 else { return nil }
+        return Int8(value)
+    }
+}
+
+extension Character: ArgConvertibleType {
+    public static func fromString(_ string: String) -> Character? {
+        return string.first
+    }
+
+    public static func typeName() -> String {
+        return "Character"
     }
 }

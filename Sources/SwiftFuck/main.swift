@@ -6,7 +6,7 @@
 //  Copyright © 2018 Carl Ekman. All rights reserved.
 //
 
-import Foundation//-Swiftline
+import Swiftline
 
 // MARK: - Language
 
@@ -53,32 +53,21 @@ extension Session {
             switch instruction {
             case .left:
                 pointer -= 1
-
             case .right:
                 pointer += 1
-
             case .inc:
                 data[pointer] += 1
-
             case .dec:
                 data[pointer] -= 1
-
             case .loop:
                 let closure = instructions.popNextClosure()
                 while data[pointer] != 0 {
                     execute(closure)
                 }
-
             case .end:
                 break
-
             case .read:
-//                let input: Int8 = ask("Input byte:")
-//                data[pointer] = input
-                if let input = readByte() {
-                    data[pointer] = input
-                }
-
+                data[pointer] = readByte()
             case .write:
                 writeByte(data[pointer])
             }
@@ -88,15 +77,22 @@ extension Session {
 
 // MARK: - REPL
 
-printOutput("Running Brainfuck REPL. Enter 'q' to quit.")
-let session = Session()
-var input: String = ""
-repeat {
-    session.printCells()
-    printPrompt()
-    input = readLine() ?? ""
-    let instructions = input.compactMap { Instruction(rawValue: $0) }
+if let program = Args.parsed.parameters.last {
+    print("Running Brainfuck program…")
+    let session = Session()
+    let instructions = program.compactMap { Instruction(rawValue: $0) }
     session.execute(instructions)
-} while input != "q"
+} else {
+    print("Running Brainfuck REPL. Enter 'q' to quit.")
+    let session = Session()
+    var input: String = ""
+    repeat {
+        session.printCells()
+        printPrompt()
+        input = readLine() ?? ""
+        let instructions = input.compactMap { Instruction(rawValue: $0) }
+        session.execute(instructions)
+    } while input != "q"
 
-printOutput("Quitting")
+    print("Quitting")
+}

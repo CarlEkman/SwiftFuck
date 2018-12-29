@@ -6,7 +6,7 @@
 //  Copyright © 2018 Carl Ekman. All rights reserved.
 //
 
-import Foundation
+import Foundation//-Swiftline
 
 // MARK: - Language
 
@@ -73,6 +73,8 @@ extension Session {
                 break
 
             case .read:
+//                let input: Int8 = ask("Input byte:")
+//                data[pointer] = input
                 if let input = readByte() {
                     data[pointer] = input
                 }

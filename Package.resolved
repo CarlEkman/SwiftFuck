@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Swiftline",
+        "repositoryURL": "https://github.com/Swiftline/Swiftline.git",
+        "state": {
+          "branch": null,
+          "revision": "4f84dee14e47a69bfbea71a6dbba0ddc9fd9b66b",
+          "version": "0.5.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

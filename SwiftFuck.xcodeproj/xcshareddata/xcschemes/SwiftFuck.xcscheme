@@ -64,8 +64,8 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "&quot;&gt;&gt;,.&quot;"
-            isEnabled = "YES">
+            argument = "-! &quot;+++[&gt;,.&lt;-]!abc&quot;"
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>

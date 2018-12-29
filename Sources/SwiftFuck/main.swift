@@ -26,6 +26,8 @@ enum Instruction: Character {
 class Session {
     /// The Brainfuck data byte cells.
     var data: [Int8]
+    /// Optional program input, if running with !.
+    var input: [Character]?
     /// The highest data cell pointed to thus far.
     var highest: Int = 0
     /// The data pointer. Points to a data cell.
@@ -67,24 +69,49 @@ extension Session {
             case .end:
                 break
             case .read:
-                data[pointer] = readByte()
+                readData()
             case .write:
                 writeByte(data[pointer])
             }
+        }
+    }
+
+    private func readData() {
+        if input != nil, let next = input?.popFirst()?.toByte() {
+            data[pointer] = next
+        } else {
+            data[pointer] = readByte()
         }
     }
 }
 
 // MARK: - REPL
 
-if let program = Args.parsed.parameters.last {
+let flags: [String] = ["!"]
+Args.parsed.flags
+    .filter { !flags.contains($0.key) }
+    .forEach {
+        printError("Unknown flag: \($0.key)")
+        fatalError()
+}
+
+let session = Session()
+
+if let program = Args.parsed.parameters.last, Args.parsed.flags.count == 0 {
     print("Running Brainfuck program…")
-    let session = Session()
     let instructions = program.compactMap { Instruction(rawValue: $0) }
     session.execute(instructions)
+
+} else if let program = Args.parsed.flags["!"] {
+    print("Running Brainfuck program with input…")
+    let instructions = program.compactMap { Instruction(rawValue: $0) }
+    let rawInput = program.split(separator: "!")[1]
+    let unicodeArray = Array(rawInput.unicodeScalars)
+    session.input = unicodeArray.compactMap { Character($0) }
+    session.execute(instructions)
+
 } else {
     print("Running Brainfuck REPL. Enter 'q' to quit.")
-    let session = Session()
     var input: String = ""
     repeat {
         session.printCells()

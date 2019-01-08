@@ -23,9 +23,13 @@ func readByte() -> Int8 {
     return input.toByte()!
 }
 
-func writeByte(_ value: Int8) {
+func writeByte(_ value: Int8, withNewLine: Bool = true) {
     if let scalar = UnicodeScalar(Int(value)) {
-        print(scalar)
+        if withNewLine {
+            print(scalar)
+        } else {
+            print(scalar, terminator: "")
+        }
     } else {
         printError("Cannot write data as Unicode.")
     }

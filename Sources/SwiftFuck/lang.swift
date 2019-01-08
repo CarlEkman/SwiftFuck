@@ -21,6 +21,8 @@ enum Instruction: Character {
 
 /// A Brainfuck REPL session.
 class Session {
+    /// Session options.
+    var options: Options
     /// The Brainfuck data byte cells.
     var data: [Int8]
     /// Optional program input, if running with !.
@@ -39,9 +41,17 @@ class Session {
         }
     }
 
-    init(cellCount: Int, input: [Character]? = nil) {
+    init(cellCount: Int, input: [Character]? = nil, newLine: Bool = true) {
+        self.options = Options(printWithNewLine: newLine)
         self.data = Array(repeating: 0, count: cellCount)
         self.input = input
+    }
+}
+
+extension Session {
+    struct Options {
+        /// End each character printout with new line.
+        let printWithNewLine: Bool
     }
 }
 
@@ -69,7 +79,8 @@ extension Session {
             case .read:
                 readData()
             case .write:
-                writeByte(data[pointer])
+                let newLine = options.printWithNewLine || instructions.isEmpty
+                writeByte(data[pointer], withNewLine: newLine)
             }
         }
     }

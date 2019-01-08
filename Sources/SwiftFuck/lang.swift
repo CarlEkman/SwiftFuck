@@ -39,8 +39,9 @@ class Session {
         }
     }
 
-    init(cells: Int = 30_000) {
-        self.data = Array(repeating: 0, count: cells)
+    init(cellCount: Int, input: [Character]? = nil) {
+        self.data = Array(repeating: 0, count: cellCount)
+        self.input = input
     }
 }
 

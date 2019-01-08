@@ -64,7 +64,11 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-! &quot;+++[&gt;,.&lt;-]!abc&quot;"
+            argument = "-n 2 -! &quot;+++[&gt;,.&lt;-]!abc&quot;"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-n 10 &quot;++++++++[&gt;++++[&gt;++&gt;+++&gt;+++&gt;+&lt;&lt;&lt;&lt;-]&gt;+&gt;+&gt;-&gt;&gt;+[&lt;]&lt;-]&gt;&gt;.&gt;---.+++++++..+++.&gt;&gt;.&lt;-.&lt;.+++.------.--------.&gt;&gt;+.&gt;++.&quot;"
             isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>

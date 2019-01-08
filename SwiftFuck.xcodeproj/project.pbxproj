@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		C336898321E4A99000A471DA /* lang.swift in Sources */ = {isa = PBXBuildFile; fileRef = C336898221E4A99000A471DA /* lang.swift */; };
 		OBJ_100 /* Colorizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* Colorizer.swift */; };
 		OBJ_101 /* CommandExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* CommandExecutor.swift */; };
 		OBJ_102 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* Env.swift */; };
@@ -92,6 +93,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C336898221E4A99000A471DA /* lang.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lang.swift; sourceTree = "<group>"; };
 		OBJ_10 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		OBJ_11 /* util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = util.swift; sourceTree = "<group>"; };
 		OBJ_14 /* SwiftFuckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftFuckTests.swift; sourceTree = "<group>"; };
@@ -232,7 +234,7 @@
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -241,7 +243,6 @@
 				OBJ_16 /* Dependencies */,
 				OBJ_47 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -256,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_10 /* main.swift */,
+				C336898221E4A99000A471DA /* lang.swift */,
 				OBJ_9 /* io.swift */,
 				OBJ_11 /* util.swift */,
 			);
@@ -360,7 +362,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_47 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -391,6 +393,7 @@
 				OBJ_56 /* io.swift in Sources */,
 				OBJ_57 /* main.swift in Sources */,
 				OBJ_58 /* util.swift in Sources */,
+				C336898321E4A99000A471DA /* lang.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

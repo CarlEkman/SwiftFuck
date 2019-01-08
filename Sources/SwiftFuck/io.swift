@@ -24,7 +24,7 @@ func readByte() -> Int8 {
 }
 
 func writeByte(_ value: Int8, withNewLine: Bool = true) {
-    if let scalar = UnicodeScalar(Int(value)) {
+    if let scalar = UnicodeScalar(Int(UInt8(bitPattern: value))) {
         if withNewLine {
             print(scalar)
         } else {
@@ -39,7 +39,8 @@ extension Session {
     func printCells() {
         var output = ""
         for i in 0...highest {
-            let string = String(describing: data[i])
+            let value: Int = options.contains(.unsigned) ? Int(UInt8(bitPattern: data[i])) : Int(data[i])
+            let string = String(describing: value)
             let register = i == pointer ? "[\(string)]" : string
             let separator = i == highest ? "" : " "
             output += register + separator
@@ -47,6 +48,7 @@ extension Session {
         print(output)
     }
 }
+
 
 extension Character {
     func toByte() -> Int8? {

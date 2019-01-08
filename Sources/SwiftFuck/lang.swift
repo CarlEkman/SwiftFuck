@@ -41,17 +41,21 @@ class Session {
         }
     }
 
-    init(cellCount: Int, input: [Character]? = nil, newLine: Bool = true) {
-        self.options = Options(printWithNewLine: newLine)
+    init(cellCount: Int, input: [Character]? = nil, options: Options) {
         self.data = Array(repeating: 0, count: cellCount)
         self.input = input
+        self.options = options
     }
 }
 
 extension Session {
-    struct Options {
-        /// End each character printout with new line.
-        let printWithNewLine: Bool
+    struct Options: OptionSet {
+        let rawValue: Int
+
+        static let newLine  = Options(rawValue: 1 << 0)
+        static let unsigned = Options(rawValue: 1 << 1)
+
+        static let all: Options = [.newLine, .unsigned]
     }
 }
 
@@ -66,9 +70,9 @@ extension Session {
             case .right:
                 pointer += 1
             case .inc:
-                data[pointer] += 1
+                increment()
             case .dec:
-                data[pointer] -= 1
+                decrement()
             case .loop:
                 let closure = instructions.popNextClosure()
                 while data[pointer] != 0 {
@@ -79,9 +83,25 @@ extension Session {
             case .read:
                 readData()
             case .write:
-                let newLine = options.printWithNewLine || instructions.isEmpty
+                let newLine = options.contains(.newLine) || instructions.isEmpty
                 writeByte(data[pointer], withNewLine: newLine)
             }
+        }
+    }
+
+    private func increment() {
+        if data[pointer] < Int8.max {
+            data[pointer] += 1
+        } else {
+            data[pointer] = Int8.min
+        }
+    }
+
+    private func decrement() {
+        if data[pointer] > Int8.min {
+            data[pointer] -= 1
+        } else {
+            data[pointer] = Int8.max
         }
     }
 
